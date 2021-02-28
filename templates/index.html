@@ -10,14 +10,30 @@
 
     <h1>ToDoList-WebApp</h1>
 
-    <form action="">
+    <form action="/add" method="post">
         <div>
-            <label for="title">ToDo element title</label>
-            <input type="text" name="title" placeholder="Enter your ToDo element">
+            <label for="enter">ToDo element title</label>
+            <input type="text" name="enter" placeholder="Enter your ToDo element">
             <br>
             <button type="submit">ADD</button>
         </div>
     </form>
+
+    <!-- Listing all of ToDoList elements on page -->
+    {% for element in ArrayOfToDoList %}
+        <p>{{ element.id }} | {{ element.title }}</p>
+
+        {% if element.full == True %}
+            <span>Done</span>
+        {% else %}   
+            <span>Not done yet</span>
+        {% endif %}
+
+        <a href="/">Mark as done</a>
+        <a href="/">Remove</a>
+
+
+    {% endfor %}
 
 </body>
 </html>

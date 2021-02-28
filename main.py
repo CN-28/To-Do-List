@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 
 #application setup
@@ -20,10 +20,17 @@ class ToDoList(db.Model):
 def index():
     ArrayOfToDoList = ToDoList.query.all()
     print(ArrayOfToDoList)
-    return render_template('index.html')
+    return render_template('index.html', ArrayOfToDoList=ArrayOfToDoList)
 
+#function which adds functionality to our "ADD" button
+@app.route('/add', methods=["POST"])
+def add_new_element():
+    elem_name = request.form.get("enter")
+    element = ToDoList(title=elem_name, full=False)
+    db.session.add(element)
+    db.session.commit()
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     db.create_all()
-
     app.run(debug=True)
