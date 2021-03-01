@@ -29,8 +29,8 @@
             <span>Not done yet</span>
         {% endif %}
 
-        <a href="/">Mark as done</a>
-        <a href="/">Remove</a>
+        <a href="/modify/{{ element.id }}">Modify</a>
+        <a href="/delete/{{ element.id }}">Remove</a>
 
 
     {% endfor %}
