@@ -31,6 +31,25 @@ def add_new_element():
     db.session.commit()
     return redirect(url_for("index"))
 
+@app.route('/mark_as_done/<int:elem_id>', methods=["POST"])
+def mark_as_done():
+    #we query database to get this element
+    element = ToDoList.query.filter(id=elem_id).first() 
+    element.full = True
+    #saving changes in database
+    db.session.commit()
+    return redirect(url_for("index"))
+
+@app.route('/delete/<int: elem_id>', methods=["POST"])
+def delete():
+    #we query database to get this element
+    element = ToDoList.query.filter(id=elem_id).first() 
+    #deleting element form database
+    db.session.delete(element)
+    #saving changes in database
+    db.session.commit()
+    return redirect(url_for("index"))
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)
