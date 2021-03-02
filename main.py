@@ -13,7 +13,7 @@ class ToDoList(db.Model):
     #we want integer value to be unique
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
-    full = db.Column(db.Boolean)
+    done = db.Column(db.Boolean)
 
 #creating main page
 @app.route('/')
@@ -26,7 +26,7 @@ def index():
 @app.route('/add', methods=["POST"])
 def add_new_element():
     elem_name = request.form.get("enter")
-    element = ToDoList(title=elem_name, full=False)
+    element = ToDoList(title=elem_name, done=False)
     db.session.add(element)
     db.session.commit()
     return redirect(url_for("index"))
@@ -35,7 +35,7 @@ def add_new_element():
 def modify(element_id):
     #we query database to get this element
     element = ToDoList.query.filter_by(id=element_id).first() 
-    element.full = not element.full
+    element.done = not element.done
     #saving changes in database
     db.session.commit()
     return redirect(url_for("index"))
