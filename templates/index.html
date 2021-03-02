@@ -11,7 +11,7 @@
 </head>
 <body style="background-color: darkcyan;">
     <div class="ui container" style="margin-top: 25px">
-    <h1 class ='ui header'  align="center">
+    <h1 class ='ui header'>
         <i class="edit icon"></i>
         <div class="content">
             To Do List
@@ -20,7 +20,7 @@
 
     <form class='ui form' action="/add" method="post">
         <div class='ui input focus'>
-            <label class='ui yellow right pointing label' for="enter">Element title</label>
+            <label class='ui yellow right pointing label' for="enter">ELEMENT TITLE</label>
             <input type="text" name="enter" placeholder="Enter your To Do element">
             <br>
             <button style="margin-left: 5px" class ='ui blue button' type="submit">ADD</button>
@@ -30,16 +30,35 @@
     <!-- Listing all of ToDoList elements on page -->
     {% for element in ArrayOfToDoList %}
     <div class='ui raised segment'>
-        <p class='ui big header'>{{ element.id }} | {{ element.title }}</p>
-        {% if element.full == True %}
-            <span style="margin-bottom: 10px;" class='ui huge green right ribbon label'>Done</span>
-        {% else %}   
-            <span style="margin-bottom: 10px;" class='ui huge black right ribbon label'>Not done yet</span>
-        {% endif %}
+      
+        <div class='ui items'>
+            <div class='item'>
+                <p class="ui big header">{{ element.id }}. {{ element.title }}</p>
 
-        <a class='ui gray button' href="/modify/{{ element.id }}">Modify</a>
-        <a class='ui orange button' href="/remove/{{ element.id }}">Remove</a>
-
+                {% if element.full == True %}
+                <div class="middle aligned content">
+                    <div class='ui huge green right ribbon label'>
+                        <i class='check icon'></i>Done
+                    </div>
+                </div>
+               
+                {% else %}  
+                <div class="middle aligned content">
+                    <div class='ui huge red right ribbon label'>
+                        <i class='x icon'></i>Not done yet
+                    </div>
+                </div> 
+                {% endif %}
+    
+            
+            </div>
+        </div>
+        
+       
+        <a class='ui inverted primary button' href="/modify/{{ element.id }}">Modify status</a>
+        <a class='ui inverted orange button' href="/remove/{{ element.id }}">Remove</a>
+        
+    
     </div>
     {% endfor %}
     </div>
