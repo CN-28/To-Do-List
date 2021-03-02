@@ -4,63 +4,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ToDoList-WebApp</title>
 
+    <!-- Linking with Semantic UI -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
 </head>
+
+
 <body style="background-color: darkcyan;">
     <div class="ui container" style="margin-top: 25px">
-    <h1 class ='ui header'>
-        <i class="edit icon"></i>
-        <div class="content">
-            To Do List
-        </div>
-    </h1>
-
-    <form class='ui form' action="/add" method="post">
-        <div class='ui input focus'>
-            <label class='ui yellow right pointing label' for="enter">ELEMENT TITLE</label>
-            <input type="text" name="enter" placeholder="Enter your To Do element">
-            <br>
-            <button style="margin-left: 5px" class ='ui blue button' type="submit">ADD</button>
-        </div>
-    </form>
-
-    <!-- Listing all of ToDoList elements on page -->
-    {% for element in ArrayOfToDoList %}
-    <div class='ui raised segment'>
-      
-        <div class='ui items'>
-            <div class='item'>
-                <p class="ui big header">{{ element.id }}. {{ element.title }}</p>
-
-                {% if element.done == True %}
-                <div class="middle aligned content">
-                    <div class='ui huge green right ribbon label'>
-                        <i class='check icon'></i>Done
-                    </div>
-                </div>
-               
-                {% else %}  
-                <div class="middle aligned content">
-                    <div class='ui huge red right ribbon label'>
-                        <i class='x icon'></i>Not done yet
-                    </div>
-                </div> 
-                {% endif %}
-    
-            
+        
+        <!-- Header of the site -->
+        <h1 class ='ui header'>
+            <i class="edit icon"></i>
+            <div class="content">
+                To Do List
             </div>
+        </h1>
+
+        <!-- Collecting input from user -->
+        <form class='ui form' action="/add" method="post">
+            <div class='ui input focus'>
+                <label class='ui yellow right pointing label' for="enter">ELEMENT TITLE</label>
+                <input type="text" name="enter" placeholder="Enter your To Do element">
+                <button style="margin-left: 5px" class ='ui blue button' type="submit">ADD</button>
+            </div>
+        </form>
+
+        <!-- Listing all of ToDoList elements on page -->
+        {% for element in ArrayOfToDoList %}
+        <div class='ui raised segment'>
+        
+            <div class='ui items'>
+                <div class='item'>
+                    <p class="ui big header">{{ element.id }}. {{ element.title }}</p>
+
+                    {% if element.done == True %}
+                        <div class="middle aligned content">
+                            <div class='ui huge green right ribbon label'>
+                                <i class='check icon'></i>Done
+                            </div>
+                        </div>
+                    {% else %}  
+                        <div class="middle aligned content">
+                            <div class='ui huge red right ribbon label'>
+                                <i class='x icon'></i>Not done yet
+                            </div>
+                        </div> 
+                    {% endif %}
+        
+                </div>     
+            </div>
+            
+            <a class='ui inverted primary button' href="/modify/{{ element.id }}">Modify status</a>
+            <a class='ui inverted orange button' href="/remove/{{ element.id }}">Remove</a>
+        
         </div>
-        
-       
-        <a class='ui inverted primary button' href="/modify/{{ element.id }}">Modify status</a>
-        <a class='ui inverted orange button' href="/remove/{{ element.id }}">Remove</a>
-        
-    
-    </div>
-    {% endfor %}
+        {% endfor %}
+
     </div>
 </body>
 </html>
