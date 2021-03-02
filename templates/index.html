@@ -9,30 +9,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </head>
-<body>
+<body style="background-color: darkcyan;">
     <div class="ui container" style="margin-top: 25px">
-    <h1 class ='ui header'  align="center">To Do List</h1>
+    <h1 class ='ui header'  align="center">
+        <i class="edit icon"></i>
+        <div class="content">
+            To Do List
+        </div>
+    </h1>
 
     <form class='ui form' action="/add" method="post">
-        <div>
-            <label class='ui black label' for="enter">To Do element title</label>
+        <div class='ui input focus'>
+            <label class='ui yellow right pointing label' for="enter">Element title</label>
             <input type="text" name="enter" placeholder="Enter your To Do element">
             <br>
-            <button class ='ui button' type="submit">ADD</button>
+            <button style="margin-left: 5px" class ='ui blue button' type="submit">ADD</button>
         </div>
     </form>
 
     <!-- Listing all of ToDoList elements on page -->
     {% for element in ArrayOfToDoList %}
-    <div class='ui segment'>
-        <p class='ui big header'>{{ element.id }} | {{ element.title }}
-            {% if element.full == True %}
-                <span class='ui green label'>Done</span>
-            {% else %}   
-                <span class='ui black label'>Not done yet</span>
-            {% endif %}
-        </p>
-
+    <div class='ui raised segment'>
+        <p class='ui big header'>{{ element.id }} | {{ element.title }}</p>
+        {% if element.full == True %}
+            <span style="margin-bottom: 10px;" class='ui huge green right ribbon label'>Done</span>
+        {% else %}   
+            <span style="margin-bottom: 10px;" class='ui huge black right ribbon label'>Not done yet</span>
+        {% endif %}
 
         <a class='ui gray button' href="/modify/{{ element.id }}">Modify</a>
         <a class='ui orange button' href="/remove/{{ element.id }}">Remove</a>
