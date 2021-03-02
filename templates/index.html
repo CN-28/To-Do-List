@@ -5,35 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList-WebApp</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </head>
 <body>
+    <div class="ui container" style="margin-top: 25px">
+    <h1 class ='ui header'  align="center">To Do List</h1>
 
-    <h1>ToDoList-WebApp</h1>
-
-    <form action="/add" method="post">
+    <form class='ui form' action="/add" method="post">
         <div>
-            <label for="enter">ToDo element title</label>
-            <input type="text" name="enter" placeholder="Enter your ToDo element">
+            <label class='ui black label' for="enter">To Do element title</label>
+            <input type="text" name="enter" placeholder="Enter your To Do element">
             <br>
-            <button type="submit">ADD</button>
+            <button class ='ui button' type="submit">ADD</button>
         </div>
     </form>
 
     <!-- Listing all of ToDoList elements on page -->
     {% for element in ArrayOfToDoList %}
-        <p>{{ element.id }} | {{ element.title }}</p>
-
-        {% if element.full == True %}
-            <span>Done</span>
-        {% else %}   
-            <span>Not done yet</span>
-        {% endif %}
-
-        <a href="/modify/{{ element.id }}">Modify</a>
-        <a href="/remove/{{ element.id }}">Remove</a>
+    <div class='ui segment'>
+        <p class='ui big header'>{{ element.id }} | {{ element.title }}
+            {% if element.full == True %}
+                <span class='ui green label'>Done</span>
+            {% else %}   
+                <span class='ui black label'>Not done yet</span>
+            {% endif %}
+        </p>
 
 
+        <a class='ui gray button' href="/modify/{{ element.id }}">Modify</a>
+        <a class='ui orange button' href="/remove/{{ element.id }}">Remove</a>
+
+    </div>
     {% endfor %}
-
+    </div>
 </body>
 </html>
